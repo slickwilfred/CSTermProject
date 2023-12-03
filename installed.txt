@@ -1,0 +1,20 @@
+Installed the YAML extension by Red Hat
+
+1) Apply configurations to the kubernetes cluster
+
+PS C:\clientServer\termProject\kubernetes> kubectl apply -f app-deployment.yml   
+deployment.apps/react-app-deployment created
+PS C:\clientServer\termProject\kubernetes> kubectl apply -f app-service.yml
+service/react-app-service created
+PS C:\clientServer\termProject\kubernetes> 
+
+
+
+Download Helm
+  - https://helm.sh/docs/intro/install/
+
+
+Intall prometheus into kubernetes
+- helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+- helm repo update
+- helm install prometheus prometheus-community/prometheus

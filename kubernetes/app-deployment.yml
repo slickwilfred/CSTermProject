@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-app-deployment
+spec:
+  replicas: 2 # You can change the number of replicas
+  selector:
+    matchLabels:
+      app: react-app
+  template:
+    metadata:
+      labels:
+        app: react-app
+    spec:
+      containers:
+      - name: react-app
+        image: docker:latest # Docker image name
+        ports:
+        - containerPort: 80 # Nginx serves on port 80
