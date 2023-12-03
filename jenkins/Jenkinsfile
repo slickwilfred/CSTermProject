@@ -9,7 +9,7 @@ pipeline {
           //navigate to the director
           dir('termProject/docker/client'){
           // builds my react-app's Docker image
-            sh 'docker build react-app:latest .'
+            sh 'docker build -t react-app:latest .'
           }
         }
       }
@@ -26,8 +26,8 @@ pipeline {
         // navigate to kubernetes directory
           dir('termProject/kubernetes'){
             // start my Kubernetes configuration
-            sh 'kubctl apply -f app-deployment.yml'
-            sh 'kubctl apply -f app-horizontal-deployment.yml'
+            sh 'kubectl apply -f app-deployment.yml'
+            sh 'kubectl apply -f app-horizontal-deployment.yml'
             sh 'kubectl apply -f app-service.yml'
           }
 
