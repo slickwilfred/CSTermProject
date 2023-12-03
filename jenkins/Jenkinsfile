@@ -9,7 +9,7 @@ pipeline {
           //navigate to the director
           dir('termProject/docker/client'){
           // builds my react-app's Docker image
-            sh 'docker build -t react-app:latest .'
+            sh 'docker build -t react-app:latest -f Dockerfile .'
           }
         }
       }
