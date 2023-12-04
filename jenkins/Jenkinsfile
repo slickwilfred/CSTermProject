@@ -13,7 +13,7 @@ pipeline {
                     // Navigate to the directory
                     dir('docker/client') {
                         // Builds the React app's Docker image
-                        sh 'docker build -t react-app:latest .'
+                        sh 'docker build -t willondrik/react-app:latest .'
                     }
                 }
             }
@@ -21,10 +21,11 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                // Login to Docker Hub using login credentials
-                sh 'echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin'
-                // Pushes the Docker image to Docker Hub
-                sh 'docker push react-app:latest'
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USER', passwordVariable: 'DOCKER_HUB_PASS')]) {
+                        // Login to Docker Hub using login credentials
+                        sh 'echo $DOCKER_HUB_PASS | docker login -u $DOCKER_HUB_USER --password-stdin'
+                        // Pushes the Docker image to Docker Hub
+                        sh 'docker push willondrik/react-app:latest'
             }
         }
 
