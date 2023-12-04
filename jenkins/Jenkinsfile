@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+      // Define Docker Hub login credentials
+      DOCKER_CREDENTIALS = credentials('docker-hub-credentials')
+    }
+
     stages {
         stage('Build Docker Image') {
             steps {
@@ -16,6 +21,8 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
+                // Login to Docker Hub using login credentials
+                sh 'echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin'
                 // Pushes the Docker image to Docker Hub
                 sh 'docker push react-app:latest'
             }
