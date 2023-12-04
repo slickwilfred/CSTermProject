@@ -1,42 +1,44 @@
 pipeline {
-  agent any
+    agent any
 
-  stages {
-    stage('Build Docker Image'){
-      steps {
-      //commands to build my react application
-        script {
-          //navigate to the director
-          dir('termProject/docker/client'){
-          // builds my react-app's Docker image
-            sh 'docker build -t react-app:latest -f Dockerfile .'
-          }
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Navigate to the directory
+                    dir('termProject/docker/client') {
+                        // Builds the React app's Docker image
+                        sh 'docker build -t react-app:latest .'
+                    }
+                }
+            }
         }
-      }
-    }
-    stage('Push Docker Image') {
-      steps {
-        // pushes the Docker image to Docker Hub
-        sh 'docker push react-app:latest'
-    }
-  }
-    stage('Deploy to Kubernetes'){
-      steps {
-        script {
-        // navigate to kubernetes directory
-          dir('termProject/kubernetes'){
-            // start my Kubernetes configuration
-            sh 'kubectl apply -f app-deployment.yml'
-            sh 'kubectl apply -f app-horizontal-deployment.yml'
-            sh 'kubectl apply -f app-service.yml'
-          }
 
-          dir ('termProject/grafana'){
-            sh 'kubectl apply -f grafana-deployment.yml'
-            sh 'kubectl apply -f grafana-service.yml'
-          }
+        stage('Push Docker Image') {
+            steps {
+                // Pushes the Docker image to Docker Hub
+                sh 'docker push react-app:latest'
+            }
         }
-      }
-    }  
-  }  
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    // Navigate to Kubernetes directory
+                    dir('termProject/kubernetes') {
+                        // Apply Kubernetes configuration
+                        sh 'kubectl apply -f app-deployment.yml'
+                        sh 'kubectl apply -f app-horizontal-deployment.yml'
+                        sh 'kubectl apply -f app-service.yml'
+                    }
+
+                    // Navigate to Grafana directory
+                    dir('termProject/grafana') {
+                        sh 'kubectl apply -f grafana-deployment.yml'
+                        sh 'kubectl apply -f grafana-service.yml'
+                    }
+                }
+            }
+        }
+    }
 }
