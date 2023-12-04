@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-      // Define Docker Hub login credentials
-      DOCKER_CREDENTIALS = credentials('docker-hub-credentials')
+        // Define Docker Hub login credentials
+        DOCKER_CREDENTIALS = credentials('docker-hub-credentials')
     }
 
     stages {
@@ -21,11 +21,14 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USER', passwordVariable: 'DOCKER_HUB_PASS')]) {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USER', passwordVariable: 'DOCKER_HUB_PASS')]) {
                         // Login to Docker Hub using login credentials
                         sh 'echo $DOCKER_HUB_PASS | docker login -u $DOCKER_HUB_USER --password-stdin'
                         // Pushes the Docker image to Docker Hub
                         sh 'docker push willondrik/react-app:latest'
+                    }
+                }
             }
         }
 
@@ -50,3 +53,4 @@ pipeline {
         }
     }
 }
+
