@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     // Navigate to the directory
-                    dir('termProject/docker/client') {
+                    dir('docker/client') {
                         // Builds the React app's Docker image
                         sh 'docker build -t react-app:latest .'
                     }
@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     // Navigate to Kubernetes directory
-                    dir('termProject/kubernetes') {
+                    dir('kubernetes') {
                         // Apply Kubernetes configuration
                         sh 'kubectl apply -f app-deployment.yml'
                         sh 'kubectl apply -f app-horizontal-deployment.yml'
@@ -33,7 +33,7 @@ pipeline {
                     }
 
                     // Navigate to Grafana directory
-                    dir('termProject/grafana') {
+                    dir('grafana') {
                         sh 'kubectl apply -f grafana-deployment.yml'
                         sh 'kubectl apply -f grafana-service.yml'
                     }
