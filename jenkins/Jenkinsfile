@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Define Docker Hub login credentials
         DOCKER_CREDENTIALS = credentials('docker-hub-credentials')
-        KUBECONFIG = 'C:\\WSLkubectlConfig\\config'
+        KUBECONFIG = 'C:\\Users\\willo\\.kube\\config'
     }
 
     stages {
