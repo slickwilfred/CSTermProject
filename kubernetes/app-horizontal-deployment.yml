@@ -15,7 +15,7 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 25 # originally 50
+        averageUtilization: 5 # originally 50
 
 
 

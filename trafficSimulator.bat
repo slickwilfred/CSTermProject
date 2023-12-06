@@ -1,7 +1,7 @@
 @echo off
 
 %= URL of my NodePort service =%
-SET URL=http://localhost:30007
+SET URL=http://localhost:8080
 
 %= Infinite loop to simulate network traffic =%
 :loop
