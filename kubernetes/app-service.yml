@@ -3,9 +3,14 @@ kind: Service
 metadata:
   name: react-app-service
 spec:
-  type: LoadBalancer # Use NodePort or LoadBalancer depending on your environment
+  type: NodePort
   ports:
     - port: 80
       targetPort: 80
+      nodePort: 30007
   selector:
     app: react-app
+
+
+
+# line 6 - type -- use nodeport or loadbalance depending on your environment

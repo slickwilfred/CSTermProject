@@ -5,6 +5,9 @@ nodes:
 - role: worker
 - role: worker
 
+
+
+
 # this will set up a Kind cluster with one control-plane (master node) and two worker nodes
  
 # create the cluster with this command: kind create cluster --name [clusterName] --config kind-config.yml
